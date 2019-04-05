@@ -1,10 +1,10 @@
 {
   "name": "Hello, Blockstack",
-  "start_url": "localhost:9000",
-  "description": "A simple demo of Blockstack Auth",
+  "start_url": "helloblockstack.com",
+  "description": "A simple demo of Blockstack auth and storage",
   "icons": [{
-    "src": "https://helloblockstack.com/icon-192x192.png",
-    "sizes": "192x192",
+    "src": "http://helloblockstack.com/carrot.png",
+    "sizes": "160x160",
     "type": "image/png"
   }]
 }

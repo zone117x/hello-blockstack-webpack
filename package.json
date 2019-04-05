@@ -1,22 +1,16 @@
 {
-  "name": "hello-blockstack-webpack",
+  "name": "blockstack-demo",
   "version": "1.0.0",
-  "description": "",
-  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "pack": "webpack",
-    "dev": "webpack-dev-server --open"
+    "build": "webpack",
+    "dev": "webpack-dev-server"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
     "webpack": "^4.29.6",
     "webpack-cli": "^3.3.0",
     "webpack-dev-server": "^3.2.1"
   },
   "dependencies": {
-    "blockstack": "file:../blockstack.js"
+    "blockstack": "github:blockstack/blockstack.js#feature/dist-files-update"
   }
 }
