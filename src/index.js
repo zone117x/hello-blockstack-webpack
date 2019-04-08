@@ -1,11 +1,9 @@
-// import blockstack from 'blockstack'
+import * as blockstack from 'blockstack'
 
-import * as blockstack from 'blockstack/dist/blockstack'
-
-document.addEventListener("DOMContentLoaded", function (event) {
+document.addEventListener("DOMContentLoaded", function () {
     document.getElementById('signin-button').addEventListener('click', function (event) {
       event.preventDefault()
-      blockstack.redirectToSignIn(`${window.location.origin}/auth.html`, undefined, ['store_write', 'email'])
+      blockstack.redirectToSignIn()
     })
     document.getElementById('signout-button').addEventListener('click', function (event) {
       event.preventDefault()
@@ -14,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     function showProfile(profile) {
       var person = new blockstack.Person(profile)
-      document.getElementById('heading-name').innerHTML = person.name() ? person.name() : "Nameless Person"
+      document.getElementById('heading-name').textContent = person.name() ? person.name() : "Nameless Person"
       if (person.avatarUrl()) {
         document.getElementById('avatar-image').setAttribute('src', person.avatarUrl())
       }
