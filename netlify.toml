@@ -1,6 +1,6 @@
 [build]
-  base = "/"
   publish = "dist/"
+  command = "npm run build"
 
 [[headers]]
   for = "/manifest.json"
