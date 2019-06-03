@@ -1,18 +1,16 @@
 {
-  "name": "hello-blockstack-webpack",
+  "name": "blockstack-demo",
   "version": "1.0.0",
-  "description": "",
-  "private": true,
   "scripts": {
     "build": "webpack",
     "dev": "webpack-dev-server"
   },
   "devDependencies": {
-    "webpack": "^4.29.6",
-    "webpack-cli": "^3.3.0",
-    "webpack-dev-server": "^3.3.0"
+    "webpack": "^4.32.2",
+    "webpack-cli": "^3.3.2",
+    "webpack-dev-server": "^3.5.1"
   },
   "dependencies": {
-    "blockstack": "^19.0.1"
+    "blockstack": "^19.2.1"
   }
 }
