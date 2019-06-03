@@ -18,6 +18,10 @@ frontend:
     paths:
       - node_modules/**/*
   customHeaders:
+   - pattern: '*.js'
+     headers:
+     - key: 'Content-Type'
+       value: 'application/javascript; charset=UTF-8'
    - pattern: '**/manifest.json'
      headers:
      - key: 'Access-Control-Allow-Origin'
