@@ -1,0 +1,12 @@
+<svg width="300" height="300" xmlns="http://www.w3.org/2000/svg">
+ <g>
+  <rect fill="#ff0094" height="302" width="302" y="-1" x="-1"/>
+  <g display="none" overflow="visible" y="0" x="0" height="100%" width="100%">
+   <rect fill="url(#gridpattern)" stroke-width="0" y="0" x="0" height="100%" width="100%"/>
+  </g>
+ </g>
+ <g>
+  <text stroke="#000" transform="rotate(-45 165.0213165283203,163.7646942138672) matrix(2.795919626392106,0,0,2.795234929722721,-60.254124129272554,-69.47481003226036) " xml:space="preserve" text-anchor="start" font-family="'Trebuchet MS', Gadget, sans-serif" font-size="22" id="svg_1" y="91.31823" x="28.63139" stroke-width="0" fill="#ffffff">Blockstack</text>
+  <text stroke="#000" transform="rotate(-45 79.5885848999023,164.7573089599609) matrix(2.795919626392106,0,0,2.795234929722721,-60.254124129272554,-69.47481003226036) " xml:space="preserve" text-anchor="start" font-family="'Trebuchet MS', Gadget, sans-serif" font-size="22" id="svg_3" y="91.675982" x="20.405117" stroke-width="0" fill="#ffffff">Hello,</text>
+ </g>
+</svg>
