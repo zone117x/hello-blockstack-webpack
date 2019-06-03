@@ -6,6 +6,7 @@ frontend:
   phases:
     preBuild:
       commands:
+        - echo "using __NODE__ ${VERSION_NODE_DEFAULT}"
         - npm ci
     build:
       commands:
