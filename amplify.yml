@@ -6,7 +6,6 @@ frontend:
   phases:
     preBuild:
       commands:
-        - echo "using __NODE__ ${VERSION_NODE_DEFAULT}"
         - npm ci
     build:
       commands:
@@ -15,6 +14,9 @@ frontend:
     baseDirectory: dist
     files:
         - '**/*'
+  cache:
+    paths:
+      - node_modules/**/*
   customHeaders:
    - pattern: '**/manifest.json'
      headers:
