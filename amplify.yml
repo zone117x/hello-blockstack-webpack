@@ -1,4 +1,7 @@
 version: 1.0
+env:
+  variables:
+      VERSION_NODE_DEFAULT: 10
 frontend:
   phases:
     preBuild:
