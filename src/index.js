@@ -1,23 +1,22 @@
-import blockstack from 'blockstack'
-
-import { redirectToSignIn } from 'blockstack/lib/auth/authApp'
+import * as blockstack from 'blockstack'
 
 window.blockstack = blockstack
+
+const appConfig = new blockstack.AppConfig(['store_write', 'publish_data'])
+const userSession = new blockstack.UserSession({ 
+  appConfig: appConfig
+})
 
 document.addEventListener('DOMContentLoaded', function () {
 
   document.getElementById('signin-button').addEventListener('click', function (event) {
     event.preventDefault()
-    blockstack.redirectToSignIn(
-      window.origin,
-      window.origin + '/manifest.json',
-      ['store_write', 'publish_data']
-    )
+    userSession.redirectToSignIn()
   })
 
   document.getElementById('signout-button').addEventListener('click', function (event) {
     event.preventDefault()
-    blockstack.signUserOut(window.origin)
+    userSession.signUserOut(window.origin)
   })
 
   function showProfile(profile) {
@@ -31,19 +30,23 @@ document.addEventListener('DOMContentLoaded', function () {
     showStatus()
   }
 
-  if (blockstack.isSignInPending()) {
-    blockstack.handlePendingSignIn().then(function () {
+  if (userSession.isSignInPending()) {
+    userSession.handlePendingSignIn().then(function () {
       window.location = window.origin
     }).catch((error) => {
       window.alert(`Unexpected error in handlePendingSignIn! ${error}`)
     })
-  } else if (blockstack.isUserSignedIn()) { // User is already signed in. 
-    var profile = blockstack.loadUserData().profile
+  } else if (userSession.isUserSignedIn()) { // User is already signed in. 
+    //const userData = userSession.loadUserData()
+    const userData = blockstack.loadUserData();
+    console.log(userData.identityAddress);
+    console.log(userData)
+    var profile = userData.profile
     showProfile(profile)
   }
 
   function showStatus() {
-    blockstack.getFile('status.txt').then((statusMsg) => {
+    userSession.getFile('status.txt').then((statusMsg) => {
       if (statusMsg) {
         console.log('Got status message: ' + statusMsg)
       } else {
@@ -61,15 +64,15 @@ document.addEventListener('DOMContentLoaded', function () {
       username: username,
       decrypt: false
     }
-    blockstack.getFile('status.txt', options).then((msg) => {
+    userSession.getFile('status.txt', options).then((msg) => {
       console.log(`Got status for ${options.username}: ${msg}`)
     })
   }
 
-  document.getElementById('updateStatus').onclick = () => {
+  document.getElementById('updateStatus').onclick = async () => {
     var statusMsg = document.getElementById('status').value
-    var options = { encrypt: false }
-    blockstack.putFile('status.txt', statusMsg, options).then(() => {
+    var options = { encrypt: true }
+    userSession.putFile('status.txt', statusMsg, options).then(() => {
       console.log('uploaded publicly accessible file!')
       showStatus()
     })
@@ -81,7 +84,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const reader = new FileReader()
     reader.onloadend = () => {
       const buffer = new Uint8Array(reader.result)
-      blockstack.putFile(file.name, buffer, {
+      userSession.putFile(file.name, buffer, {
         contentType: file.type,
         encrypt: false,
       }).then((url) => {
@@ -90,34 +93,5 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     reader.readAsDataURL(file)
   }
-
-
-  // testHmac('the shared secret key here', 'the message to hash here')
-  async function testHmac(key, message) {
-
-    const getUtf8Bytes = str =>
-      new Uint8Array(
-        [...unescape(encodeURIComponent(str))].map(c => c.charCodeAt())
-      );
-
-    const keyBytes = getUtf8Bytes(key);
-    const cryptoKey = await crypto.subtle.importKey(
-      'raw', keyBytes, { name: 'HMAC', hash: 'SHA-256' },
-      true, ['sign']
-    );
-
-    const messageBytes = getUtf8Bytes(message);
-    const sig = await crypto.subtle.sign('HMAC', cryptoKey, messageBytes);
-
-    // to lowercase hexits
-    const hex = [...new Uint8Array(sig)].map(b => b.toString(16).padStart(2, '0')).join('');
-    console.log(`HEX: ${hex}`)
-
-    // to base64
-    const b64 = btoa(String.fromCharCode(...new Uint8Array(sig)));
-    console.log(`B64: ${b64}`)
-    return b64;
-  }
-
 
 })
